@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Counter } from "./Counter";
-// import { Counter } from "./Counter";
+import { Button } from "./Button";
 
 const Parent = () => {
   const [number, setNumber] = useState(1);
@@ -11,14 +11,22 @@ const Parent = () => {
     document.title = `Count ${number}`;
   }, [number]);
 
-  const handleIncrease = () => {
+  const handleIncrease = useCallback(() => {
     setNumber((prev) => prev + 1);
-  };
+  }, []);
 
-  const handleDecrease = () => {
+  const handleDecrease = useCallback(() => {
     if (number > 0) {
       setNumber((prev) => prev - 1);
     }
+  }, []);
+
+  const numberSquare = useMemo(() => {
+    return number * number;
+  }, [number]);
+
+  const numberRootSquare = () => {
+    return Math.sqrt(number);
   };
 
   console.log("Parent re-rendered");
@@ -33,8 +41,17 @@ const Parent = () => {
       }}
     >
       <Counter count={number} />
-      <button onClick={handleIncrease}>Increase</button>
-      <button onClick={handleDecrease}>Decrease</button>
+      <Button onClick={handleIncrease}>Increase</Button>
+      <Button onClick={handleDecrease}>Decrease</Button>
+
+      <div>
+        <h1>
+          Square of {number} is {numberSquare}
+        </h1>
+        <h2>
+          Rootsquare of {number} is {numberRootSquare()}
+        </h2>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-export const Button = ({ onClick, disabled = false, children }) => {
+export const Button = memo(({ onClick, children }) => {
   console.log(`Button "${children}" re-rendered`);
 
   return (
@@ -16,9 +16,10 @@ export const Button = ({ onClick, disabled = false, children }) => {
         border: "none",
         borderRadius: "4px",
       }}
-      disabled={disabled}
     >
       {children}
     </button>
   );
-};
+});
+
+Button.displayName = "Button";
