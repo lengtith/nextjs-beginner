@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-export const Button = memo(({ onClick, children }) => {
+export const OldButton = memo(({ onClick, children }) => {
   console.log(`Button "${children}" re-rendered`);
 
   return (
@@ -22,4 +22,4 @@ export const Button = memo(({ onClick, children }) => {
   );
 });
 
-Button.displayName = "Button";
+OldButton.displayName = "OldButton";

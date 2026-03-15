@@ -1,7 +1,7 @@
 "use client";
 
-import Parent from "../components/Parent";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
-  return <Parent />;
+  return <Navbar />;
 }

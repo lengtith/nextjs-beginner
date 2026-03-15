@@ -2,7 +2,8 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Counter } from "./Counter";
-import { Button } from "./Button";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 const Parent = () => {
   const [number, setNumber] = useState(1);
@@ -43,6 +44,7 @@ const Parent = () => {
       <Counter count={number} />
       <Button onClick={handleIncrease}>Increase</Button>
       <Button onClick={handleDecrease}>Decrease</Button>
+      <Input type="sl mg" />
 
       <div>
         <h1>
