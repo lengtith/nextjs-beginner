@@ -25,7 +25,7 @@ const HeroSection = () => {
           necessitatibus repudiandae
         </p>
       </div>
-      <div>
+      <div className="flex items-center gap-4">
         <Button size={"lg"} className="mt-1">
           Started
           <ArrowRight />
