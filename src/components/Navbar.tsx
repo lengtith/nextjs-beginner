@@ -8,6 +8,8 @@ const Navbar = () => {
       <h1>NextStarter</h1>
 
       <div className="flex items-center gap-4">
+        <Link href="/products">Products</Link>
+
         <Link href="/features">Features</Link>
 
         <Link href="github.com">Get Started</Link>
