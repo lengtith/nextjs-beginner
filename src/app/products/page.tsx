@@ -48,7 +48,10 @@ export default function ProductsPage() {
                   name="name"
                   defaultValue={user.name}
                   onChange={(e) =>
-                    setUser((pre) => (pre.name = e.target.value))
+                    setUser((pre) => ({
+                      ...pre,
+                      name: e.target.value,
+                    }))
                   }
                 />
               </Field>
@@ -59,7 +62,10 @@ export default function ProductsPage() {
                   name="username"
                   defaultValue={user.username}
                   onChange={(e) =>
-                    setUser((pre) => (pre.username = e.target.value))
+                    setUser((pre) => ({
+                      ...pre,
+                      username: e.target.value,
+                    }))
                   }
                 />
               </Field>
