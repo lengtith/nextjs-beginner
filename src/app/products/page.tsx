@@ -47,7 +47,7 @@ export default function ProductsPage() {
   console.log(products);
 
   return (
-    <div className="text-center space-y-5">
+    <div className="w-5xl mx-auto text-center space-y-5">
       <Navbar />
       <Button onClick={() => setIsOpen((prev) => !prev)}>Create Product</Button>
 
@@ -121,7 +121,27 @@ export default function ProductsPage() {
 
       <div className="grid grid-cols-3 gap-4">
         {products.map((product, index) => (
-          <p key={index}>{`${product.name} ${product.price}`}</p>
+          <div
+            key={product.id}
+            className="flex flex-col p-4 border border-red-500 rounded-lg"
+          >
+            <img
+              src={product.photo}
+              alt={product.name}
+              className="h-40 rounded-lg object-contain"
+            />
+
+            <div className="flex justify-between">
+              <div>
+                <h3 className="font-semibold text-xl text-blue-500">
+                  {product.name}
+                </h3>
+                <p className="text-left">${product.price.toFixed(2)}</p>
+              </div>
+
+              <Button>Add to cart</Button>
+            </div>
+          </div>
         ))}
       </div>
     </div>
