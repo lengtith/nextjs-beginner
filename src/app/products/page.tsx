@@ -123,7 +123,7 @@ export default function ProductsPage() {
         {products.map((product, index) => (
           <div
             key={product.id}
-            className="flex flex-col p-4 border border-red-500 rounded-lg"
+            className="flex flex-col gap-4 p-4 border border-red-500 rounded-lg"
           >
             <img
               src={product.photo}
@@ -133,7 +133,7 @@ export default function ProductsPage() {
 
             <div className="flex justify-between">
               <div>
-                <h3 className="font-semibold text-xl text-blue-500">
+                <h3 className="font-semibold text-left text-xl text-blue-500">
                   {product.name}
                 </h3>
                 <p className="text-left">${product.price.toFixed(2)}</p>
