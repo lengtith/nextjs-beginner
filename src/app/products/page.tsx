@@ -19,11 +19,32 @@ import { useState } from "react";
 
 export default function ProductsPage() {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState({ name: "Sokcheat", username: "sok" });
+
+  const [product, setProduct] = useState({
+    id: crypto.randomUUID(),
+    name: "Sokcheat",
+    price: 0,
+    photo: "",
+  });
+
+  const [products, setProducts] = useState([]);
 
   const handleSubmit = () => {
-    console.log(user);
+    if (!product.name || !product.price || !product.photo) return;
+
+    setProducts((pre) => [...pre, product]);
+
+    setIsOpen(false);
+
+    setProduct({
+      id: crypto.randomUUID(),
+      name: "",
+      price: 0,
+      photo: "",
+    });
   };
+
+  console.log(products);
 
   return (
     <div className="text-center space-y-5">
@@ -34,10 +55,9 @@ export default function ProductsPage() {
         <form>
           <DialogContent className="sm:max-w-sm">
             <DialogHeader>
-              <DialogTitle>Edit profile</DialogTitle>
+              <DialogTitle>Create Product</DialogTitle>
               <DialogDescription>
-                Make changes to your profile here. Click save when you&apos;re
-                done.
+                Fill in the details for your new product.
               </DialogDescription>
             </DialogHeader>
             <FieldGroup>
@@ -46,9 +66,10 @@ export default function ProductsPage() {
                 <Input
                   id="name-1"
                   name="name"
-                  defaultValue={user.name}
+                  defaultValue={product.name}
+                  placeholder="Product name"
                   onChange={(e) =>
-                    setUser((pre) => ({
+                    setProduct((pre) => ({
                       ...pre,
                       name: e.target.value,
                     }))
@@ -56,15 +77,31 @@ export default function ProductsPage() {
                 />
               </Field>
               <Field>
-                <Label htmlFor="username-1">Username</Label>
+                <Label htmlFor="price-1">Price</Label>
                 <Input
-                  id="username-1"
-                  name="username"
-                  defaultValue={user.username}
+                  id="price-1"
+                  name="price"
+                  defaultValue={product.price}
                   onChange={(e) =>
-                    setUser((pre) => ({
+                    setProduct((pre) => ({
                       ...pre,
-                      username: e.target.value,
+                      price: Number(e.target.value),
+                    }))
+                  }
+                />
+              </Field>
+
+              <Field>
+                <Label htmlFor="photo-1">Photo</Label>
+                <Input
+                  id="photo-1"
+                  name="photo"
+                  defaultValue={product.photo}
+                  placeholder="https://google.com/img.png"
+                  onChange={(e) =>
+                    setProduct((pre) => ({
+                      ...pre,
+                      photo: e.target.value,
                     }))
                   }
                 />
@@ -81,6 +118,12 @@ export default function ProductsPage() {
           </DialogContent>
         </form>
       </Dialog>
+
+      <div className="grid grid-cols-3 gap-4">
+        {products.map((product, index) => (
+          <p key={index}>{`${product.name} ${product.price}`}</p>
+        ))}
+      </div>
     </div>
   );
 }
