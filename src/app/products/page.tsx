@@ -17,17 +17,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 
+interface ProductProps {
+  id: string;
+  name: string;
+  price: number;
+  photo: string;
+}
+
 export default function ProductsPage() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [product, setProduct] = useState({
+  const [product, setProduct] = useState<ProductProps>({
     id: crypto.randomUUID(),
     name: "Sokcheat",
     price: 0,
     photo: "",
   });
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<ProductProps[]>([]);
 
   const handleSubmit = () => {
     if (!product.name || !product.price || !product.photo) return;
@@ -43,8 +50,6 @@ export default function ProductsPage() {
       photo: "",
     });
   };
-
-  console.log(products);
 
   return (
     <div className="w-5xl mx-auto text-center space-y-5">
