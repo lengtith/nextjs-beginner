@@ -30,10 +30,8 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar />
       <HeroSection />
       <FeatureSection data={features} />
-      <Footer />
     </div>
   );
 }

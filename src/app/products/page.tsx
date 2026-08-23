@@ -52,8 +52,7 @@ export default function ProductsPage() {
   };
 
   return (
-    <div className="w-5xl mx-auto text-center space-y-5">
-      <Navbar />
+    <div className="flex-1 h-full w-5xl mx-auto text-center space-y-5">
       <Button onClick={() => setIsOpen((prev) => !prev)}>Create Product</Button>
 
       <Dialog open={isOpen} onOpenChange={() => setIsOpen((prev) => !prev)}>

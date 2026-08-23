@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Features() {
-  return <div>page</div>;
+  return <div className="flex-1">page</div>;
 }

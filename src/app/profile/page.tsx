@@ -2,6 +2,8 @@
 
 import { useRef, useState } from "react";
 
+type Role = "student" | "teacher";
+
 interface EmptyUserProps {
   name: string;
   email: string;
@@ -13,7 +15,7 @@ interface FullUserProps extends EmptyUserProps {
   id: string | number;
 }
 
-type Role = "student" | "teacher";
+type UpdateUser = Partial<EmptyUserProps>;
 
 const emptyUser: EmptyUserProps = {
   name: "Ronaldo",
@@ -21,8 +23,6 @@ const emptyUser: EmptyUserProps = {
   age: 0,
   role: "student",
 };
-
-type UpdateUser = Partial<EmptyUserProps>;
 
 export default function ProfilePage() {
   const [formValues, setFormValues] = useState<EmptyUserProps>(emptyUser);
@@ -184,30 +184,30 @@ export default function ProfilePage() {
           </div>
 
           <div className="space-y-4">
-            {users.map((item) => (
+            {users.map((user) => (
               <div
-                key={item.id}
+                key={user.id}
                 className={`rounded-xl border bg-white p-6 ${
-                  editingId === item.id ? "ring-2 ring-blue-500" : ""
+                  editingId === user.id ? "ring-2 ring-blue-500" : ""
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <h3 className="font-semibold text-slate-900">
-                    {item.name || "Unnamed"}
+                    {user.name || "Unnamed"}
                   </h3>
 
                   <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium capitalize text-blue-700">
-                    {item.role}
+                    {user.role}
                   </span>
                 </div>
 
-                <p className="mt-1 text-sm text-slate-500">{item.email}</p>
-                <p className="mt-1 text-sm text-slate-500">Age: {item.age}</p>
+                <p className="mt-1 text-sm text-slate-500">{user.email}</p>
+                <p className="mt-1 text-sm text-slate-500">Age: {user.age}</p>
 
                 <div className="mt-4 flex gap-3">
                   <button
                     type="button"
-                    onClick={() => handleEdit(item)}
+                    onClick={() => handleEdit(user)}
                     className="text-sm font-medium text-blue-600 hover:text-blue-700 cursor-pointer"
                   >
                     Edit
@@ -215,7 +215,7 @@ export default function ProfilePage() {
 
                   <button
                     type="button"
-                    onClick={() => handleDelete(item.id)}
+                    onClick={() => handleDelete(user.id)}
                     className="text-sm font-medium text-red-600 hover:text-red-700 cursor-pointer"
                   >
                     Delete
