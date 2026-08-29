@@ -1,19 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useCountStore } from "@/stores/countStore";
 
 export default function CounterPage() {
-  const [count, setCount] = useState(0);
+  const { count, onIncrement, onDecrement, onReset } = useCountStore();
 
-  function onIncrement() {
-    setCount(count + 1);
-  }
-
-  const onDecrement = () => {
-    setCount(count - 1);
-  };
-
-  const Reset = () => setCount(0);
 
   return (
     <div className="flex-1 flex flex-col justify-center items-center gap-6">
@@ -26,7 +17,7 @@ export default function CounterPage() {
         -
       </button>
       <button onClick={onIncrement}>+</button>
-      <button onClick={Reset}>Reset</button>
+      <button onClick={onReset}>Reset</button>
     </div>
   );
 }
