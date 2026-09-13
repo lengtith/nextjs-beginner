@@ -1,20 +1,28 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface CountStoreProp {
   count: number;
-  name: string;
   onIncrement: () => void;
   onDecrement: () => void;
   onReset: () => void;
+  handleReset: () => number;
 }
 
-export const useCountStore = create<CountStoreProp>((set) => ({
-  // States
-  count: 10,
-  name: "seksaa",
+export const useCountStore = create<CountStoreProp>()(
+  persist(
+    (set, get) => ({
+      // States
+      count: 10,
 
-  // Actions
-  onIncrement: () => set((state) => ({ count: state.count + 1 })),
-  onDecrement: () => set((state) => ({ count: state.count - 1 })),
-  onReset: () => set((state) => ({ count: state.count * 0 })),
-}));
+      // Actions
+      onIncrement: () => set((state) => ({ count: state.count + 1 })),
+      onDecrement: () => set((state) => ({ count: state.count - 1 })),
+      handleReset: () => {
+        return 0;
+      },
+      onReset: () => set(() => ({ count: get().handleReset() })),
+    }),
+    { name: "store" },
+  ),
+);
