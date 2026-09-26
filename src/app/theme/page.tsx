@@ -2,15 +2,15 @@
 import { useThemeStore } from "@/stores/themeStore";
 
 export default function ThemePage() {
-  const { theme, toggleTheme } = useThemeStore();
+  const { theme, setTheme } = useThemeStore();
 
   return (
     <div
-      className={`flex-1 flex justify-center items-center ${theme == "light" ? "bg-white" : "bg-black"}`}
+      className={`flex-1 flex items-center justify-center  ${theme == "dark" ? "bg-black" : "bg-white"}`}
     >
       <button
-        className="bg-blue-500 rounded-lg px-4 py-2 text-white"
-        onClick={toggleTheme}
+        className="bg-amber-500 text-white px-3 py-2 rounded-md"
+        onClick={setTheme}
       >
         {theme}
       </button>
