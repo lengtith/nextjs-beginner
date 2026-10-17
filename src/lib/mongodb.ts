@@ -1,14 +1,17 @@
 import { MongoClient } from "mongodb";
 
-const client = new MongoClient(
-  "mongodb+srv://sotith1998_db_user:HOW33oNWLAJYYVFC@cluster0.gc1hith.mongodb.net/?appName=Cluster0",
-);
+const uri = process.env.MONGODB_URI;
+if (!uri) {
+  throw new Error("Missing MONGODB_URI in .env");
+}
+
+const client = new MongoClient(uri);
 
 export async function connectToMongoDB() {
   try {
     await client.connect();
     console.log("You successfully connected to MongoDB!");
-    return client.db("seksaa");
+    return client.db(process.env.MONGODB_DB); // database name from .env
   } catch (err) {
     console.dir(err);
   }
