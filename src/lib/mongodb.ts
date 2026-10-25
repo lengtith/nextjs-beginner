@@ -1,7 +1,10 @@
 import { MongoClient } from "mongodb";
 
+const USERNAME = process.env.MONGODB_USERNAME;
+const PASSWORD = process.env.MONGODB_PASSWORD;
+
 const client = new MongoClient(
-  "mongodb+srv://sotith1998_db_user:HOW33oNWLAJYYVFC@cluster0.gc1hith.mongodb.net/?appName=Cluster0",
+  `mongodb+srv://${USERNAME}:${PASSWORD}@cluster0.gc1hith.mongodb.net/?appName=Cluster0`,
 );
 
 export async function connectToMongoDB() {
