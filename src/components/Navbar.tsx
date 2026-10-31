@@ -10,7 +10,7 @@ import { Label } from "./ui/label";
 
 const Navbar = () => {
   const { count } = useCountStore();
-  const { theme, toggleTheme } = useThemeStore();
+  const { theme, setTheme } = useThemeStore();
 
   return (
     <div className="flex-none flex items-center justify-between p-5 border-b">
@@ -21,7 +21,7 @@ const Navbar = () => {
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2 bg-gray-200 border border-gray-200 rounded-full px-2 py-1">
           <Label>{theme}</Label>
-          <Switch onClick={toggleTheme} />
+          <Switch onClick={setTheme} />
         </div>
 
         <Link href={"/counter"}>Counter</Link>

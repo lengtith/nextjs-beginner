@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 type School = { _id: string; name: string; gender: string; age: number };
 
 export default function SchoolPage() {
-  const [schools, setSchools] = useState([]);
+  const [schools, setSchools] = useState<School[]>([]);
   const [listLoading, setListLoading] = useState(true);
 
   const [name, setName] = useState("");
@@ -70,10 +70,6 @@ export default function SchoolPage() {
       setLoading(false);
     }
   }
-
-  console.log(name);
-  console.log(age);
-  console.log(gender);
 
   return (
     <main className="flex-1 w-full max-w-md mx-auto px-4 py-10">
@@ -148,7 +144,7 @@ export default function SchoolPage() {
             {schools.map((school) => (
               <li
                 key={school._id}
-                className="flex justify-between border rounded-lg px-4 py-3"
+                className="flex justify-between border rounded-lg px-4 py-3 cursor-pointer active:scale-95 duration-300 ease-in hover:shadow-lg"
                 onClick={() => redirect(`/school/${school._id}`)}
               >
                 <span className="font-medium">{school.name}</span>

@@ -14,6 +14,8 @@ export async function connectToMongoDB() {
     return client.db("seksaa");
   } catch (err) {
     console.dir(err);
+    // Re-throw so the route's catch returns a 500 instead of using an undefined db.
+    throw err;
   }
 }
 

@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { postStore } from "@/stores/postStore";
 
+type Post = { id: number; title: string; body: string };
+
 export default function PostsPage() {
   const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   const fetchPosts = async () => {
     try {

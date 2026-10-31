@@ -7,6 +7,9 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
+    if (!ObjectId.isValid(id)) {
+      return Response.json({ message: "School not found" }, { status: 404 });
+    }
 
     const db = await connectToMongoDB();
     const school = await db
@@ -16,6 +19,8 @@ export async function GET(
     if (!school?._id) {
       return Response.json({ message: "School not found" }, { status: 404 });
     }
+
+    return Response.json(school);
   } catch (error) {
     return Response.json({ message: "Server error" }, { status: 500 });
   }
@@ -27,8 +32,12 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
+    if (!ObjectId.isValid(id)) {
+      return Response.json({ message: "School not found" }, { status: 404 });
+    }
     const db = await connectToMongoDB();
     const form = await request.json();
+    delete form._id;
 
     const result = await db
       ?.collection("school")
@@ -50,6 +59,9 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
+    if (!ObjectId.isValid(id)) {
+      return Response.json({ message: "School not found" }, { status: 404 });
+    }
     const db = await connectToMongoDB();
     const result = await db
       ?.collection("school")
