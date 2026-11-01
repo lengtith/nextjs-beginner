@@ -1,9 +1,13 @@
-import { connectToMongoDB } from "@/lib/mongodb";
+import { connectToMongoDB } from "@/lib/mongoose";
+import { School } from "@/models/School";
 
 export async function GET() {
   try {
     const db = await connectToMongoDB();
-    const schools = await db?.collection("school").find().toArray();
+    // const schools = await db?.collection("school").find().toArray();
+
+    const schools = await School.find();
+
     return Response.json(schools ?? []);
   } catch (error) {
     console.log(error);
@@ -32,7 +36,7 @@ export async function POST(request: Request) {
     const db = await connectToMongoDB();
     // Save only the fields we expect, not the whole body
     const form = { name: name.trim(), gender, age };
-    const result = await db?.collection("school").insertOne(form);
+    const result = await School.create(form);
 
     return Response.json(
       {
@@ -43,6 +47,6 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.log(error);
-    return Response.json({ message: "Server error" }, { status: 500 });
+    return Response.json({ message: error.message }, { status: 500 });
   }
 }
