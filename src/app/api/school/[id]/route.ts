@@ -1,4 +1,5 @@
 import { connectToMongoDB } from "@/lib/mongodb";
+import { School } from "@/models/School";
 import { ObjectId } from "mongodb";
 
 export async function GET(
@@ -12,9 +13,7 @@ export async function GET(
     }
 
     const db = await connectToMongoDB();
-    const school = await db
-      ?.collection("school")
-      .findOne({ _id: new ObjectId(id) });
+    const school = await School.findById(id);
 
     if (!school?._id) {
       return Response.json({ message: "School not found" }, { status: 404 });

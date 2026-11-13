@@ -3,8 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { schoolSchema } from "@/lib/validations/school";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
+import { z } from "zod";
 
 type School = { _id: string; name: string; gender: string; age: number };
 
@@ -18,6 +20,7 @@ export default function SchoolPage() {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState();
 
   async function fetchSchool() {
     try {
@@ -44,6 +47,12 @@ export default function SchoolPage() {
     setMessage("");
 
     try {
+      const formValidation = schoolSchema.safeParse({ name });
+      if (!formValidation.success) {
+        console.log(formValidation.error.issues);
+        setErrorMsg(z.flattenError(formValidation.error).fieldErrors);
+      }
+
       const res = await fetch("/api/school", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -85,9 +94,9 @@ export default function SchoolPage() {
             id="name"
             placeholder="Sok Chea"
             value={name}
-            required
             onChange={(e) => setName(e.target.value)}
           />
+          <p className="text-red-500 text-xs">{errorMsg?.name?.[0]}</p>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -97,13 +106,13 @@ export default function SchoolPage() {
             id="gender"
             value={gender}
             className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-base md:text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] dark:bg-input/30"
-            required
             onChange={(e) => setGender(e.target.value)}
           >
             <option value="">Select gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
+          <p className="text-red-500 text-xs">{errorMsg?.gender?.[0]}</p>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -114,9 +123,9 @@ export default function SchoolPage() {
             min={0}
             placeholder="10"
             value={age}
-            required
             onChange={(e) => setAge(e.target.value)}
           />
+          <p className="text-red-500 text-xs">{errorMsg?.age?.[0]}</p>
         </div>
 
         <Button type="submit" disabled={loading}>

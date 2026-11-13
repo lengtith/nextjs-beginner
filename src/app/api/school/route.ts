@@ -1,4 +1,5 @@
 import { connectToMongoDB } from "@/lib/mongoose";
+import { schoolSchema } from "@/lib/validations/school";
 import { School } from "@/models/School";
 
 export async function GET() {
@@ -18,6 +19,16 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+
+    const bodyValidate = schoolSchema.safeParse(body);
+    if (!bodyValidate.success) {
+      return Response.json(
+        {
+          message: bodyValidate.error.issues[0].message,
+        },
+        { status: 400 },
+      );
+    }
 
     const { name, gender, age } = body;
 
